@@ -1,0 +1,4 @@
+TEST 3
+
+- Media: 2057,62
+- Desvío estándar: 104,04
