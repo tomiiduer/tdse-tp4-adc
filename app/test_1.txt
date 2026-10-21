@@ -1,4 +1,10 @@
-TEST 1
+TEST 1 - Lectura simple del ADC
 
-- Media:2361,67
+Descripción
+- Se realiza una única conversión del ADC1 (canal 0, PA0) por muestra, por polling.
+- Se adquieren 100 muestras con el potenciómetro aproximadamente a la mitad de su
+  recorrido.
+
+Resultados
+- Media: 2361,67
 - Desvío estándar: 110,51
