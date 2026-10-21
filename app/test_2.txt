@@ -1,10 +1,25 @@
-TEST 2
+TEST 2 - Lectura del ADC promediando 16 conversiones
 
+Descripción
+- Cada muestra es el promedio de 16 conversiones consecutivas del ADC1 (canal 0,
+  PA0), por polling.
+- Se adquieren 100 muestras con el potenciómetro aproximadamente a la mitad de su
+  recorrido.
+
+Resultados
 - Media: 2071,19
-- Desviación estándar: 13,90
+- Desvío estándar: 13,90
 
+Comparación con el Test 1
 
-		Media 1: 2361,67		Desvío estándar 1: 110,51
-		Media 2: 2071,19		Desvío estándar 2: 13,90
----------------------------------------------------------------------------
-Diferencia: 		  290,48				   96,61
+                      Test 1      Test 2      Diferencia
+  Media               2361,67     2071,19     290,48
+  Desvío estándar      110,51       13,90      96,61
+
+- El desvío estándar se reduce de 110,51 a 13,90 (cerca de 8 veces menos, ~87 %):
+  promediar vuelve la lectura mucho más estable y menos sensible al ruido.
+- El costo es que cada muestra requiere 16 conversiones, es decir más tiempo de
+  procesamiento por muestra.
+- Promediar no debería desplazar el valor medio, por lo que la diferencia entre
+  las medias (290,48) probablemente se deba a que el potenciómetro no quedó
+  exactamente en la misma posición en ambos tests.
