@@ -1,4 +1,40 @@
-TEST 3
+TEST 3 - Lectura del ADC por interrupción
 
+Descripción
+- Se realiza una única conversión del ADC1 (canal 0, PA0) por muestra, igual que
+  en el Test 1, pero iniciada con HAL_ADC_Start_IT() y sin esperar a que termine.
+- Al finalizar la conversión, el ADC genera una interrupción (ADC1_2_IRQn) y el
+  callback HAL_ADC_ConvCpltCallback() guarda el valor en un arreglo y habilita
+  la siguiente conversión.
+- Las 100 muestras se imprimen por consola recién al terminar la adquisición.
+- Se adquieren 100 muestras con el potenciómetro aproximadamente a la mitad de su
+  recorrido.
+
+Resultados
 - Media: 2057,62
 - Desvío estándar: 104,04
+
+Comparación con el Test 1 (polling)
+
+                      Test 1      Test 3
+  Media               2361,67     2057,62
+  Desvío estándar      110,51      104,04
+
+- Calidad de la medición: el desvío estándar es prácticamente el mismo (110,51 vs
+  104,04). Es esperable, ya que en ambos tests cada muestra proviene de una única
+  conversión y no hay promediado; cambiar el modo de lectura no reduce el ruido
+  del ADC. La diferencia entre las medias probablemente se deba a que el
+  potenciómetro no quedó en la misma posición en ambos tests.
+- Uso de la CPU: en el Test 1 la CPU espera (bloqueada) a que termine cada
+  conversión y además imprime cada muestra en el mismo lazo. En el Test 3 el ADC
+  trabaja por su cuenta y la CPU queda libre mientras convierte; el aviso de fin
+  de conversión llega por interrupción.
+- Temporización: en el Test 3 la impresión por consola se hace al final, por lo
+  que no interfiere con el tiempo entre conversiones.
+- Complejidad: el Test 3 es más complejo (interrupciones, callback, arreglo de
+  muestras y banderas compartidas entre la interrupción y el lazo principal).
+
+Conclusión
+- Para el mismo ruido de medición, la lectura por interrupción libera a la CPU
+  para otras tareas, a costa de una implementación más compleja. El polling del
+  Test 1 es más simple, pero bloquea la CPU durante la conversión.
