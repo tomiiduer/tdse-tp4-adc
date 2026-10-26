@@ -6,5 +6,5 @@ Descripción
   recorrido.
 
 Resultados
-- Media: 2361,67
-- Desvío estándar: 110,51
+- Media: 1750,90
+- Desvío estándar: 1,20
