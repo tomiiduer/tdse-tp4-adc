@@ -11,20 +11,35 @@ Descripción
   recorrido.
 
 Resultados
-- Media: 2057,62
-- Desvío estándar: 104,04
+- Media: 1752,07
+- Desvío estándar muestral (n-1): 1,00   (poblacional: 0,99)
+- Distribución: 1752 (73 muestras), 1750 (11), 1754 (13), 1753 (3). No hay
+  valores atípicos ni transitorio de arranque.
 
 Comparación con el Test 1 (polling)
 
-                      Test 1      Test 3
-  Media               2361,67     2057,62
-  Desvío estándar      110,51      104,04
+                          Test 1      Test 3
+  Media                   1750,90     1752,07
+  Desvío estándar (n-1)      1,21        1,00
+  
 
-- Calidad de la medición: el desvío estándar es prácticamente el mismo (110,51 vs
-  104,04). Es esperable, ya que en ambos tests cada muestra proviene de una única
-  conversión y no hay promediado; cambiar el modo de lectura no reduce el ruido
-  del ADC. La diferencia entre las medias probablemente se deba a que el
-  potenciómetro no quedó en la misma posición en ambos tests.
+  (Los desvíos están calculados con la misma fórmula, muestral n-1, en ambos
+  tests. Los poblacionales son 1,20 y 0,99.)
+
+- Calidad de la medición: el desvío estándar es del mismo orden en los dos tests
+  (1,21 vs 1,00), alrededor de 1 cuenta del ADC. Es esperable, ya que en ambos
+  tests cada muestra proviene de una única conversión y no hay promediado;
+  cambiar el modo de lectura no reduce el ruido del ADC. La pequeña diferencia
+  a favor del Test 3 se explica en parte por una deriva lenta en el Test 1: la
+  media de sus primeras 50 muestras es 1751,7 y la de las últimas 50 es 1750,1,
+  lo que agrega dispersión que no es ruido. El Test 3 no muestra esa deriva; su
+  dispersión viene de picos esporádicos de ±2 cuentas alrededor de 1752.
+- Diferencia entre las medias: 1,17 cuentas (1750,90 vs 1752,07), es decir
+  menos de 0,03 % del fondo de escala de 12 bits (4096). Es del orden del
+  desvío, pero mayor que la incertidumbre de cada media (≈ 0,1 con 100
+  muestras), así que probablemente no es azar: lo más razonable es que el
+  potenciómetro quedó apenas en otra posición o derivó levemente entre ambos
+  tests. No indica que un modo de lectura sea más exacto que el otro.
 - Uso de la CPU: en el Test 1 la CPU espera (bloqueada) a que termine cada
   conversión y además imprime cada muestra en el mismo lazo. En el Test 3 el ADC
   trabaja por su cuenta y la CPU queda libre mientras convierte; el aviso de fin
@@ -35,6 +50,7 @@ Comparación con el Test 1 (polling)
   muestras y banderas compartidas entre la interrupción y el lazo principal).
 
 Conclusión
-- Para el mismo ruido de medición, la lectura por interrupción libera a la CPU
-  para otras tareas, a costa de una implementación más compleja. El polling del
-  Test 1 es más simple, pero bloquea la CPU durante la conversión.
+- Para el mismo ruido de medición (≈ 1 cuenta de desvío), la lectura por
+  interrupción libera a la CPU para otras tareas, a costa de una implementación
+  más compleja. El polling del Test 1 es más simple, pero bloquea la CPU durante
+  la conversión.
