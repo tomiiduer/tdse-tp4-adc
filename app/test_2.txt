@@ -7,19 +7,16 @@ Descripción
   recorrido.
 
 Resultados
-- Media: 2071,19
-- Desvío estándar: 13,90
+- Media: 1746,29
+- Desvío estándar: 0,45
 
 Comparación con el Test 1
 
                       Test 1      Test 2      Diferencia
-  Media               2361,67     2071,19     290,48
-  Desvío estándar      110,51       13,90      96,61
+  Media               1750,90     1746,29     4,61
+  Desvío estándar        1,20        0,45     0,75
 
-- El desvío estándar se reduce de 110,51 a 13,90 (cerca de 8 veces menos, ~87 %):
+- El desvío estándar se reduce de 1,20 a 0,45:
   promediar vuelve la lectura mucho más estable y menos sensible al ruido.
 - El costo es que cada muestra requiere 16 conversiones, es decir más tiempo de
   procesamiento por muestra.
-- Promediar no debería desplazar el valor medio, por lo que la diferencia entre
-  las medias (290,48) probablemente se deba a que el potenciómetro no quedó
-  exactamente en la misma posición en ambos tests.
